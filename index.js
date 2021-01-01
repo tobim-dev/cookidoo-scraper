@@ -3,11 +3,12 @@ const browserObject = require("./browser");
 const scraperController = require("./pageController");
 
 const app = express();
-const port = 3000;
+const PORT = 8080;
+const HOST = "0.0.0.0";
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/recipesWeek", async (req, res) => {
+app.post("/recipesWeek", async (req, res) => {
   if (!req.body.username && !req.body.password) {
     return res
       .status(400)
@@ -27,6 +28,6 @@ app.get("/recipesWeek", async (req, res) => {
   res.send(result);
 });
 
-app.listen(port, () => {
-  console.log(`Cookidoo Scraper listening at http://localhost:${port}`);
+app.listen(PORT, HOST, () => {
+  console.log(`Cookidoo Scraper listening at http://${HOST}:${PORT}`);
 });
