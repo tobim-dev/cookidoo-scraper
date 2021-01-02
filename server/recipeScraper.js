@@ -1,6 +1,5 @@
-const got = require("got");
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
+import got from "got";
+import {JSDOM} from "jsdom";
 
 const selectBy = (selector, dom) => {
   return dom.window.document.querySelector(selector);
@@ -9,12 +8,12 @@ const selectBy = (selector, dom) => {
 const getNumbersFromInnerHTML = (htmlElement) => {
   return htmlElement.innerHTML
     .split(" ")
-    .filter((item) => parseInt(item) == item);
+    .filter(Number);
 };
 
 const getRecipeInformation = async (recipeURL) => {
   const url = recipeURL;
-  const recipeId = recipeURL.split('/').pop()
+  const recipeId = recipeURL.split("/").pop();
   const response = await got(url);
   const dom = new JSDOM(response.body);
 
@@ -37,7 +36,7 @@ const getRecipeInformation = async (recipeURL) => {
   );
   const numberOfPortions = selectBy("#rc-icon-quantity-icon-text", dom);
 
-  const recipe = {
+  return {
     name: recipeTitle.innerHTML,
     energy: {
       kJ: getNumbersFromInnerHTML(naehrwerte)[0],
@@ -47,9 +46,8 @@ const getRecipeInformation = async (recipeURL) => {
     carbs: getNumbersFromInnerHTML(carbs)[0],
     fat: getNumbersFromInnerHTML(fat)[0],
     numberOfPortions: getNumbersFromInnerHTML(numberOfPortions)[0],
-    recipeId: recipeId
+    recipeId: recipeId,
   };
-  return recipe;
 };
 
-module.exports = getRecipeInformation;
+export default getRecipeInformation;

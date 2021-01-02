@@ -1,4 +1,4 @@
-const getRecipeInformation = require("./recipeScraper");
+import getRecipeInformation from "./recipeScraper";
 
 const scraperObject = {
   url: "https://cookidoo.de/foundation/de-DE",
@@ -62,10 +62,8 @@ const scraperObject = {
       return Promise.all(urls.map((url) => getRecipeInformation(url)));
     };
 
-    const recipeData = await getRecipeData();
-
-    return recipeData;
+    return await getRecipeData();
   },
 };
 
-module.exports = scraperObject;
+export default scraperObject;

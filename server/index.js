@@ -1,9 +1,9 @@
-const express = require("express");
-const NodeCache = require("node-cache");
-const browserObject = require("./browser");
-const scraperController = require("./pageController");
-const generateUserId = require("./utils/generateUserId");
-const recipeScraper = require("./recipeScraper");
+import express from "express";
+import startBrowser from "./browser";
+import scraperController from "./pageController";
+import NodeCache from "node-cache";
+import generateUserId from "./utils/generateUserId";
+import recipeScraper from "./recipeScraper";
 
 const app = express();
 const myCache = new NodeCache();
@@ -50,7 +50,7 @@ app.post("/week", async (req, res) => {
   };
 
   // Check for nocache param
-  const useCache = req.query.nocache === "" ? false : true;
+  const useCache = req.query.nocache !== "";
 
   let result;
   let cachedResult;
@@ -58,7 +58,7 @@ app.post("/week", async (req, res) => {
   if (useCache) cachedResult = myCache.get(generateUserId(userData.username));
 
   if (!cachedResult) {
-    let browserInstance = browserObject.startBrowser();
+    let browserInstance = startBrowser();
     result = await scraperController(browserInstance, userData);
   } else {
     console.log("Using cached result");

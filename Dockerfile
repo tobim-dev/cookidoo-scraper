@@ -18,18 +18,20 @@ RUN apk add --no-cache \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
+COPY package*.json ./
+
+RUN npm install
+
+COPY ./server ./server
+
+RUN npm run build && rm -r node_modules && cp -a build/. . && rm -r build && rm -r server && npm ci --only=production
+
 RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
     && mkdir -p /home/pptruser/Downloads /app \
     && chown -R pptruser:pptruser /home/pptruser \
     && chown -R pptruser:pptruser /app
 
 USER pptruser
-
-COPY package*.json ./
-
-RUN npm ci --only=production
-
-COPY . .
 
 EXPOSE 8080
 CMD [ "node", "index.js" ]

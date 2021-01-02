@@ -6,7 +6,7 @@ async function startBrowser() {
     console.log("Opening the browser......");
     browser = await puppeteer.launch({
       headless: true,
-      args: ["--disable-gpu", '--no-sandbox' ,'--disable-dev-shm-usage'],
+      args: ["--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage"],
       ignoreHTTPSErrors: true,
     });
   } catch (err) {
@@ -15,6 +15,4 @@ async function startBrowser() {
   return browser;
 }
 
-module.exports = {
-  startBrowser,
-};
+export default startBrowser;

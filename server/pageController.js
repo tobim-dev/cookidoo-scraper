@@ -1,5 +1,5 @@
-const pageScraper = require("./pageScraper");
-async function scrapeAll(browserInstance, userData) {
+import pageScraper from "./pageScraper";
+async function pageController(browserInstance, userData) {
   let browser;
   try {
     browser = await browserInstance;
@@ -9,5 +9,4 @@ async function scrapeAll(browserInstance, userData) {
   }
 }
 
-module.exports = (browserInstance, userData) =>
-  scrapeAll(browserInstance, userData);
+export default pageController;

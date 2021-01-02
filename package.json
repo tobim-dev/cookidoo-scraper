@@ -8,12 +8,34 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
     "start:watch": "nodemon index.js",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "babel-node": "babel-node --presets='@babel/preset-env'",
+    "dev": "nodemon --exec npm run babel-node -- ./server/index.js",
+    "clean": "rm -rf build && mkdir build",
+    "build-server": "babel -d ./build ./server",
+    "build": "npm run clean && npm run build-server",
+    "start": "node ./build/index.js",
+    "docker:build": "docker build -t tobin2010/cookidoo-scraper ."
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "nodemon": "^2.0.6",
     "prettier": "2.2.1"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
   }
 }
