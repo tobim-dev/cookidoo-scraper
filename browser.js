@@ -6,7 +6,7 @@ async function startBrowser() {
     console.log("Opening the browser......");
     browser = await puppeteer.launch({
       headless: true,
-      args: ["--no-sandbox", "--disable-gpu"],
+      args: ["--disable-gpu", '--no-sandbox' ,'--disable-dev-shm-usage'],
       ignoreHTTPSErrors: true,
     });
   } catch (err) {

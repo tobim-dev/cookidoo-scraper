@@ -14,6 +14,7 @@ const getNumbersFromInnerHTML = (htmlElement) => {
 
 const getRecipeInformation = async (recipeURL) => {
   const url = recipeURL;
+  const recipeId = recipeURL.split('/').pop()
   const response = await got(url);
   const dom = new JSDOM(response.body);
 
@@ -46,6 +47,7 @@ const getRecipeInformation = async (recipeURL) => {
     carbs: getNumbersFromInnerHTML(carbs)[0],
     fat: getNumbersFromInnerHTML(fat)[0],
     numberOfPortions: getNumbersFromInnerHTML(numberOfPortions)[0],
+    recipeId: recipeId
   };
   return recipe;
 };
