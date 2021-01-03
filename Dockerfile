@@ -19,12 +19,13 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 COPY package*.json ./
+COPY .babel* ./
 
-RUN npm install
+RUN npm install && npm cache clean --force
 
-COPY ./server ./server
+COPY ./src ./src
 
-RUN npm run build && rm -r node_modules && cp -a build/. . && rm -r build && rm -r server && npm ci --only=production
+RUN npm run build && rm -r node_modules && npm ci --only=production
 
 RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
     && mkdir -p /home/pptruser/Downloads /app \
@@ -34,4 +35,4 @@ RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
 USER pptruser
 
 EXPOSE 8080
-CMD [ "node", "index.js" ]
+CMD [ "node", "dist/index.js" ]

@@ -2,7 +2,7 @@
   "name": "cookidoo-scraper",
   "private": true,
   "author": "Tobias Meyer (https://tmeyer.me)",
-  "license": "GPLv3",
+  "license": "MIT",
   "main": "index.js",
   "engines": {
     "node": "12.18.2"
@@ -25,7 +25,8 @@
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
     "format": "npm run prettier -- --write",
     "check-format": "npm run prettier -- --list-different",
-    "validate": "npm-run-all --parallel check-types check-format lint build"
+    "validate": "npm-run-all --parallel check-types check-format lint build",
+    "docker-build": "docker build -t tobin2010/cookidoo-scraper ."
   },
   "devDependencies": {
     "@babel/cli": "^7.10.4",

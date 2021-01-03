@@ -16,7 +16,7 @@
     "eslint-config-prettier",
     "eslint-config-prettier/@typescript-eslint"
   ],
-  "ignorePatterns": ["**/scriptables/*.js"],
+  "ignorePatterns": ["**/scriptables/*.js", "**/dist/*"],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",
     "strict": ["error", "never"]

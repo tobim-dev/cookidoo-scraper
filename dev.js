@@ -1,2 +1,2 @@
-import '@babel/register'
-import './src'
+require('@babel/register')
+require('./src')

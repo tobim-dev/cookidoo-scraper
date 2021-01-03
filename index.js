@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 if (process.env.NODE_ENV === 'production') {
-  import './dist'
+  require('./dist')
 } else {
-  import dotenv from 'dotenv'
-  import nodemon from 'nodemon'
+  const dotenv = require('dotenv')
+  const nodemon = require('nodemon')
   dotenv.config()
   nodemon({
     script: 'dev.js',
