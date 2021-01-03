@@ -1,0 +1,37 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint/eslint-plugin"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "eslint-config-prettier",
+    "eslint-config-prettier/@typescript-eslint"
+  ],
+  "ignorePatterns": ["**/scriptables/*.js"],
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "strict": ["error", "never"]
+  },
+  "overrides": [
+    {
+      // enable the rule specifically for TypeScript files
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": ["error"]
+      }
+    }
+  ],
+  "env": {
+    "node": true,
+    "es6": true
+  }
+}
