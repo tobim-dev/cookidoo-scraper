@@ -15,7 +15,8 @@
     "jsdom": "^16.4.0",
     "loglevel": "^1.6.8",
     "node-cache": "^5.1.2",
-    "puppeteer": "^5.5.0"
+    "puppeteer": "^5.5.0",
+    "swagger-ui-express": "^4.1.6"
   },
   "scripts": {
     "start": "node .",

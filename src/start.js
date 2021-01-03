@@ -2,6 +2,9 @@ import express from 'express'
 // this is all it takes to enable async/await for express middleware
 import 'express-async-errors'
 import logger from 'loglevel'
+import swaggerUi from 'swagger-ui-express'
+//import {swaggerSpec} from './swaggerSpec'
+import swaggerSpec from './swaggerSpec.json'
 
 // all the routes for my app are retrieved from the src/routes/index.js module
 import {getRoutes} from './routes'
@@ -56,6 +59,7 @@ function startServer({port = process.env.PORT} = {}) {
   app.use(errorMiddleware)
   // I mount my entire app to the /api route (or you could just do "/" if you want)
   app.use('/api', getRoutes())
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
   // I prefer dealing with promises. It makes testing easier, among other things.
   // So this block of code allows me to start the express app and resolve the
   // promise with the express server

@@ -4,10 +4,10 @@ import NodeCache from 'node-cache'
 const myCache = new NodeCache()
 
 async function recipeInformation(req, res) {
-  if (!req.body.recipeId) {
+  if (!req.query.recipeId) {
     return res.status(400).send('Please provide a Recipie ID')
   }
-  const recipeId = req.body.recipeId
+  const recipeId = req.query.recipeId
   const baseURL = process.env.COOKIDOO_RECIPE_BASE_URL
   console.log(baseURL)
 
