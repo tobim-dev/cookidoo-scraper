@@ -1,5 +1,15 @@
-export default function makeAuthorizedRecipeScraper({makeBrowser, url}) {
-  async function scrapeRecipeIdsOnWeekplan({userData} = {}) {
+import {Browser} from 'puppeteer'
+import {UserData} from '../../use-cases/listRecipeInformationOnWeekplan'
+
+export type AuthorizedRecipeScraper = {
+  scrapeRecipeIdsOnWeekplan: (userData: UserData) => Promise<string[]>
+}
+
+export default function makeAuthorizedRecipeScraper(
+  makeBrowser: () => Promise<Browser>,
+  url: string,
+): AuthorizedRecipeScraper {
+  async function scrapeRecipeIdsOnWeekplan(userData: UserData) {
     const browser = await makeBrowser()
     const page = await browser.newPage()
     console.log(`Navigating to ${url}...`)
@@ -15,16 +25,8 @@ export default function makeAuthorizedRecipeScraper({makeBrowser, url}) {
 
     // Login Page
     await page.waitForSelector('#email')
-    await page.$eval(
-      '#email',
-      (el, value) => (el.value = value),
-      userData.username,
-    )
-    await page.$eval(
-      '#password',
-      (el, value) => (el.value = value),
-      userData.password,
-    )
+    await page.$eval('#email', (el: HTMLInputElement, value) => (el.value = value), userData.username)
+    await page.$eval('#password', (el: HTMLInputElement, value) => (el.value = value), userData.password)
     await page.click('#j_submit_id')
 
     //await page.waitForNavigation()
@@ -43,16 +45,16 @@ export default function makeAuthorizedRecipeScraper({makeBrowser, url}) {
     )
 
     const recipeIdList = await page.$$eval('core-tile > a', links => {
-      const recipeIds = links.map(el => el.href.split('/').pop())
+      const recipeIds = links.map((el: HTMLLinkElement) => el.href.split('/').pop())
       return recipeIds
     })
 
     await browser.close()
 
-    return recipeIdList
+    return recipeIdList as string[]
   }
 
-  return Object.freeze({
+  return {
     scrapeRecipeIdsOnWeekplan,
-  })
+  }
 }

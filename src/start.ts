@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 import express from 'express'
 import 'express-async-errors'
 import logger from 'loglevel'
@@ -26,7 +27,7 @@ function errorMiddleware(error, req, res, next) {
 function setupCloseOnExit(server) {
   // thank you stack overflow
   // https://stackoverflow.com/a/14032965/971592
-  async function exitHandler(options = {}) {
+  async function exitHandler(options) {
     await server
       .close()
       .then(() => {
@@ -59,8 +60,10 @@ function startServer({port = process.env.PORT} = {}) {
 
   return new Promise(resolve => {
     const server = app.listen(port, () => {
+      //@ts-ignore
       logger.info(`Listening on port ${server.address().port}`)
       const originalClose = server.close.bind(server)
+      //@ts-ignore
       server.close = () => {
         return new Promise(resolveClose => {
           originalClose(resolveClose)

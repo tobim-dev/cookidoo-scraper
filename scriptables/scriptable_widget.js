@@ -58,9 +58,7 @@ async function createWidget() {
   mealNameText.font = Font.boldSystemFont(16)
   widget.addSpacer(3)
 
-  let recipeCalories = widget.addText(
-    `${result[0].energy.kcal} kcal pro Portion`,
-  )
+  let recipeCalories = widget.addText(`${result[0].energy.kcal} kcal pro Portion`)
   recipeCalories.textColor = Color.gray()
   recipeCalories.font = Font.mediumSystemFont(10)
 
@@ -116,8 +114,7 @@ async function getImage(image) {
     let imageUrl
     switch (image) {
       case 'meal.png':
-        imageUrl =
-          'https://cdn2.iconfinder.com/data/icons/international-food/64/hor_mok-64.png'
+        imageUrl = 'https://cdn2.iconfinder.com/data/icons/international-food/64/hor_mok-64.png'
         break
       default:
         console.log(`Sorry, couldn't find ${image}.`)
@@ -141,10 +138,7 @@ async function getMealOfToday() {
   // Get Data
   try {
     // If cache exists and it's been less than 60 minutes since last request, use cached data.
-    if (
-      cacheExists &&
-      today.getTime() - cacheDate.getTime() < cacheMinutes * 60 * 1000
-    ) {
+    if (cacheExists && today.getTime() - cacheDate.getTime() < cacheMinutes * 60 * 1000) {
       console.log('Get from Cache')
       result = JSON.parse(files.readString(cachePath))
     } else {

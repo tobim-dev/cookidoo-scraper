@@ -6,6 +6,6 @@ if (process.env.NODE_ENV === 'production') {
   const nodemon = require('nodemon')
   dotenv.config()
   nodemon({
-    script: 'dev.js',
+    script: 'dev.ts',
   })
 }

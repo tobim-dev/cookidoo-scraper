@@ -4,6 +4,8 @@
     // and we're only using TypeScript for type checking, we'll set "noEmit"
     // to true so running type checking doesn't generate any files.
     "noEmit": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "baseUrl": "./src"
   }
 }

@@ -14,10 +14,7 @@ async function getMealsOfWeek() {
   // Get Data
   try {
     // If cache exists and it's been less than 60 minutes since last request, use cached data.
-    if (
-      cacheExists &&
-      today.getTime() - cacheDate.getTime() < cacheMinutes * 60 * 1000
-    ) {
+    if (cacheExists && today.getTime() - cacheDate.getTime() < cacheMinutes * 60 * 1000) {
       console.log('Get from Cache')
       result = JSON.parse(files.readString(cachePath))
     } else {
