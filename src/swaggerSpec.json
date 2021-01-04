@@ -8,7 +8,7 @@
   "paths": {
     "/api/recipe": {
       "get": {
-        "description": "Auto generated using Swagger Inspector",
+        "description": "Gets a recipe information object",
         "parameters": [
           {
             "name": "recipeId",
@@ -24,7 +24,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Auto generated using Swagger Inspector",
+            "description": "Sucessfully a recipe information object",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -34,7 +34,7 @@
             }
           },
           "400": {
-            "description": "Auto generated using Swagger Inspector",
+            "description": "Error if not providing a recipe ID",
             "content": {
               "text/html; charset=utf-8": {
                 "schema": {
@@ -44,7 +44,7 @@
             }
           },
           "500": {
-            "description": "Auto generated using Swagger Inspector",
+            "description": "Generic error if the recipe could not be scraped",
             "content": {
               "text/html; charset=utf-8": {
                 "schema": {
@@ -58,7 +58,7 @@
     },
     "/api/weekplan": {
       "post": {
-        "description": "Auto generated using Swagger Inspector",
+        "description": "Gets a list of recipe information for all recipes planned in your weekplan",
         "requestBody": {
           "content": {
             "application/json": {
@@ -71,7 +71,7 @@
         },
         "responses": {
           "200": {
-            "description": "Auto generated using Swagger Inspector",
+            "description": "Sucessfully gets the list of recipe information of your weekplan",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
@@ -81,7 +81,7 @@
             }
           },
           "400": {
-            "description": "Auto generated using Swagger Inspector",
+            "description": "Error if username and password to login are not provided",
             "content": {
               "text/html; charset=utf-8": {
                 "schema": {
@@ -91,7 +91,7 @@
             }
           },
           "500": {
-            "description": "Auto generated using Swagger Inspector",
+            "description": "Generic error if the recipes could not be scraped or failed to login",
             "content": {
               "text/html; charset=utf-8": {
                 "schema": {
