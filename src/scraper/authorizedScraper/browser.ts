@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer'
 
 async function startBrowser() {
-  let browser
+  let browser: puppeteer.Browser
   try {
     console.log('Opening the browser......')
     browser = await puppeteer.launch({
@@ -15,4 +15,7 @@ async function startBrowser() {
   return browser
 }
 
-export {startBrowser}
+export default async function makeBrowser() {
+  const browserInstance = await startBrowser()
+  return browserInstance
+}

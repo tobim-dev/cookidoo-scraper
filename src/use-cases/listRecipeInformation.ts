@@ -1,11 +1,18 @@
+import {Cache} from 'cache/cacheFactory'
+import {RecipeScraper} from 'scraper/unauthorizedScraper/recipeScraper'
 import {recipeInformation} from '../entities/recipeInformation'
 
-export default function makeListRecipeInformation({recipeScraper, cache}) {
-  return async function listRecipeInformation({
+export type ListRecipeInformation = (
+  recipeId: string,
+) => Promise<recipeInformation>
+
+export default function makeListRecipeInformation(
+  recipeScraper: RecipeScraper,
+  cache: Cache,
+): ListRecipeInformation {
+  return async function listRecipeInformation(
     recipeId,
-  }: {
-    recipeId: string
-  }): Promise<recipeInformation> {
+  ): Promise<recipeInformation> {
     if (!recipeId) {
       throw new Error('You must supply a recipe id.')
     }
@@ -17,16 +24,14 @@ export default function makeListRecipeInformation({recipeScraper, cache}) {
     }
 
     if (cache.getValue(recipeId)) {
-      return cache.getValue(recipeId)
+      return JSON.parse(cache.getValue(recipeId))
     }
 
     const recipeInformationScrapeResult = await recipeScraper.scrapeRecipeInformationById(
-      {
-        recipeId,
-      },
+      recipeId,
     )
 
-    cache.setValue(recipeId, recipeInformationScrapeResult)
+    cache.setValue(recipeId, JSON.stringify(recipeInformationScrapeResult))
 
     return recipeInformationScrapeResult as recipeInformation
   }

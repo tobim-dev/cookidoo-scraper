@@ -1,9 +1,12 @@
 {
   "compilerOptions": {
-    // because we're compiling with Babel instead of TypeScript
-    // and we're only using TypeScript for type checking, we'll set "noEmit"
-    // to true so running type checking doesn't generate any files.
-    "noEmit": true,
-    "baseUrl": "./src"
+    "resolveJsonModule": true,
+    "baseUrl": "./src",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist"
   }
 }
