@@ -1,31 +1,16 @@
 import NodeCache from 'node-cache'
+import {dayKeyGenerator} from './keyGenerator'
+import makeCache from './cacheFactory'
 
-function makeCache({keyGenerator} = {}) {
-  const cache = new NodeCache()
+const recipeInformationCache = makeCache({cache: new NodeCache()})
+const recipeInformationListCache = makeCache({
+  keyGenerator: dayKeyGenerator,
+  cache: new NodeCache(),
+})
 
-  function setValue(key, value) {
-    const setKey = keyGenerator ? keyGenerator.generateKey(key) : key
-    cache.set(setKey, JSON.stringify(value))
-  }
+const cache = Object.freeze({
+  getRecipeInformationCache: () => recipeInformationCache,
+  getrecipeInformationListCache: () => recipeInformationListCache,
+})
 
-  function getValue(key) {
-    const setKey = keyGenerator ? keyGenerator.generateKey(key) : key
-    return cache.get(setKey)
-  }
-
-  return {
-    setValue,
-    getValue,
-  }
-}
-
-const dayKeyGenerator = {
-  generateKey(key) {
-    return key + new Date().toLocaleDateString()
-  },
-}
-
-const cache = makeCache()
-const cacheWithGenerator = makeCache({keyGenerator: dayKeyGenerator})
-
-export {cache, cacheWithGenerator}
+export default cache

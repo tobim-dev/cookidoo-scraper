@@ -1,4 +1,4 @@
-export default function makeListRecipeInformation({recipeScraper, cache = {}}) {
+export default function makeListRecipeInformation({recipeScraper, cache}) {
   return async function listRecipeInformation({recipeId} = {}) {
     if (!recipeId) {
       throw new Error('You must supply a recipe id.')

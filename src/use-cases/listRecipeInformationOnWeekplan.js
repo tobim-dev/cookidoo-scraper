@@ -1,7 +1,7 @@
 export default function makeListRecipeInformationOnWeekplan({
   authorizedRecipeScraper,
   recipeScraper,
-  cache = {},
+  cache,
 }) {
   return async function listRecipeInformationOnWeekplan({userData} = {}) {
     if (!userData.username) {
