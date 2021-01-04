@@ -1,9 +1,7 @@
 import express from 'express'
-// this is all it takes to enable async/await for express middleware
 import 'express-async-errors'
 import logger from 'loglevel'
 import swaggerUi from 'swagger-ui-express'
-//import {swaggerSpec} from './swaggerSpec'
 import swaggerSpec from './swaggerSpec.json'
 
 // all the routes for my app are retrieved from the src/routes/index.js module
@@ -55,27 +53,20 @@ function startServer({port = process.env.PORT} = {}) {
 
   app.use(express.json())
   app.use(express.urlencoded({extended: true}))
-  // add the generic error handler just in case errors are missed by middleware
   app.use(errorMiddleware)
-  // I mount my entire app to the /api route (or you could just do "/" if you want)
   app.use('/api', getRoutes())
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
-  // I prefer dealing with promises. It makes testing easier, among other things.
-  // So this block of code allows me to start the express app and resolve the
-  // promise with the express server
+
   return new Promise(resolve => {
     const server = app.listen(port, () => {
       logger.info(`Listening on port ${server.address().port}`)
-      // this block of code turns `server.close` into a promise API
       const originalClose = server.close.bind(server)
       server.close = () => {
         return new Promise(resolveClose => {
           originalClose(resolveClose)
         })
       }
-      // this ensures that we properly close the server when the program exists
       setupCloseOnExit(server)
-      // resolve the whole promise with the express server
       resolve(server)
     })
   })
