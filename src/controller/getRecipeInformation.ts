@@ -6,17 +6,13 @@ type HTTPRequest = {
   }
 }
 
-export default function makeGetRecipeInformation(
-  listRecipeInformation: ListRecipeInformation,
-) {
+export default function makeGetRecipeInformation(listRecipeInformation: ListRecipeInformation) {
   return async function getRecipeInformation(httpRequest: HTTPRequest) {
     const headers = {
       'Content-Type': 'application/json',
     }
     try {
-      const recipeInformation = await listRecipeInformation(
-        httpRequest.query.recipeId,
-      )
+      const recipeInformation = await listRecipeInformation(httpRequest.query.recipeId)
       return {
         headers,
         statusCode: 200,

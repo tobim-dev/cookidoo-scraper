@@ -1,14 +1,12 @@
-import {recipeInformation} from 'entities/recipeInformation'
+import {RecipeInformation} from 'entities/recipeInformation'
 import {JSDOM} from 'jsdom'
 import {Renderer} from './renderer'
 
 export type RecipeScraper = {
-  scrapeRecipeInformationById: (recipeId: string) => Promise<recipeInformation>
+  scrapeRecipeInformationById: (recipeId: string) => Promise<RecipeInformation>
 }
 
-export default function makeRecipeScraper(
-  makeRenderer: () => Renderer,
-): RecipeScraper {
+export default function makeRecipeScraper(makeRenderer: () => Renderer): RecipeScraper {
   const selectBy = (selector: string, dom: JSDOM) => {
     return dom.window.document.querySelector(selector)
   }
@@ -22,22 +20,10 @@ export default function makeRecipeScraper(
     const dom = await renderer.renderSiteWithRecipeId(recipeId)
 
     const recipeTitle = selectBy('h1', dom)
-    const naehrwerte = selectBy(
-      '#nutritions-desktop > div > dl > dd:nth-child(4)',
-      dom,
-    )
-    const protein = selectBy(
-      '#nutritions-desktop > div > dl > dd:nth-child(6)',
-      dom,
-    )
-    const carbs = selectBy(
-      '#nutritions-desktop > div > dl > dd:nth-child(8)',
-      dom,
-    )
-    const fat = selectBy(
-      '#nutritions-desktop > div > dl > dd:nth-child(10)',
-      dom,
-    )
+    const naehrwerte = selectBy('#nutritions-desktop > div > dl > dd:nth-child(4)', dom)
+    const protein = selectBy('#nutritions-desktop > div > dl > dd:nth-child(6)', dom)
+    const carbs = selectBy('#nutritions-desktop > div > dl > dd:nth-child(8)', dom)
+    const fat = selectBy('#nutritions-desktop > div > dl > dd:nth-child(10)', dom)
     const numberOfPortions = selectBy('#rc-icon-quantity-icon-text', dom)
 
     return {
@@ -51,7 +37,7 @@ export default function makeRecipeScraper(
       fat: getNumbersFromInnerHTML(fat)[0],
       numberOfPortions: getNumbersFromInnerHTML(numberOfPortions)[0],
       recipeId: recipeId,
-    } as recipeInformation
+    } as RecipeInformation
   }
 
   return Object.freeze({

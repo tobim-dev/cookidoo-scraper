@@ -25,16 +25,8 @@ export default function makeAuthorizedRecipeScraper(
 
     // Login Page
     await page.waitForSelector('#email')
-    await page.$eval(
-      '#email',
-      (el: HTMLInputElement, value) => (el.value = value),
-      userData.username,
-    )
-    await page.$eval(
-      '#password',
-      (el: HTMLInputElement, value) => (el.value = value),
-      userData.password,
-    )
+    await page.$eval('#email', (el: HTMLInputElement, value) => (el.value = value), userData.username)
+    await page.$eval('#password', (el: HTMLInputElement, value) => (el.value = value), userData.password)
     await page.click('#j_submit_id')
 
     //await page.waitForNavigation()
@@ -53,9 +45,7 @@ export default function makeAuthorizedRecipeScraper(
     )
 
     const recipeIdList = await page.$$eval('core-tile > a', links => {
-      const recipeIds = links.map((el: HTMLLinkElement) =>
-        el.href.split('/').pop(),
-      )
+      const recipeIds = links.map((el: HTMLLinkElement) => el.href.split('/').pop())
       return recipeIds
     })
 

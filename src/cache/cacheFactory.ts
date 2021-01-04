@@ -6,10 +6,7 @@ export type Cache = {
   getValue: (key: string) => string
 }
 
-export default function makeCache(
-  cache: NodeCache,
-  keyGenerator?: KeyGenerator,
-): Cache {
+export default function makeCache(cache: NodeCache, keyGenerator?: KeyGenerator): Cache {
   function setValue(key: string, value: string) {
     const setKey = keyGenerator ? keyGenerator.generateKey(key) : key
     cache.set(setKey, JSON.stringify(value))

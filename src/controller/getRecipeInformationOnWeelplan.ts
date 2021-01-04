@@ -10,9 +10,7 @@ type HTTPRequest = {
 export default function makeGetRecipeInformationOnWeekPlan(
   listRecipeInformationOnWeekplan: ListRecipeInformationOnWeekplan,
 ) {
-  return async function getRecipeInformationOnWeekPlan(
-    httpRequest: HTTPRequest,
-  ) {
+  return async function getRecipeInformationOnWeekPlan(httpRequest: HTTPRequest) {
     const headers = {
       'Content-Type': 'application/json',
     }

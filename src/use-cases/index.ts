@@ -4,10 +4,7 @@ import makeListRecipeInformationOnWeekplan from './listRecipeInformationOnWeekPl
 import authorizedRecipeScraper from '../scraper/authorizedScraper'
 import {recipeInformationCache, recipeInformationListCache} from '../cache'
 
-const listRecipeInformation = makeListRecipeInformation(
-  recipeScraper,
-  recipeInformationCache,
-)
+const listRecipeInformation = makeListRecipeInformation(recipeScraper, recipeInformationCache)
 const listRecipeInformationOnWeekplan = makeListRecipeInformationOnWeekplan(
   authorizedRecipeScraper,
   recipeScraper,
