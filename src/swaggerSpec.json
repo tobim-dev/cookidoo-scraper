@@ -1,0 +1,122 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Cookidoo Scraper API",
+    "description": "Scripes the recipies of your Cookidoo",
+    "version": "0.1"
+  },
+  "paths": {
+    "/api/recipe": {
+      "get": {
+        "description": "Gets a recipe information object",
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "query",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "r249355"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucessfully a recipe information object",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error if not providing a recipe ID",
+            "content": {
+              "text/html; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic error if the recipe could not be scraped",
+            "content": {
+              "text/html; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/weekplan": {
+      "post": {
+        "description": "Gets a list of recipe information for all recipes planned in your weekplan",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/body"
+              },
+              "example": "{\n    \"username\": \"USERNAME\",\n    \"password\": \"PASSWORD\"\n}"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucessfully gets the list of recipe information of your weekplan",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error if username and password to login are not provided",
+            "content": {
+              "text/html; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Generic error if the recipes could not be scraped or failed to login",
+            "content": {
+              "text/html; charset=utf-8": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "body": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
