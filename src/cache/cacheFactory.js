@@ -1,4 +1,4 @@
-export default function makeCache({keyGenerator, cache} = {}) {
+export default function makeCache({keyGenerator, cache}) {
   function setValue(key, value) {
     const setKey = keyGenerator ? keyGenerator.generateKey(key) : key
     cache.set(setKey, JSON.stringify(value))

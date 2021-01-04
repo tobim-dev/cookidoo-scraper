@@ -2,7 +2,7 @@ import makeListRecipeInformation from './listRecipeInformation'
 import recipeScraper from '../scraper/unauthorizedScraper'
 import makeListRecipeInformationOnWeekplan from './listRecipeInformationOnWeekPlan'
 import authorizedRecipeScraper from '../scraper/authorizedScraper'
-import cache from '../utils/cache'
+import cache from '../cache'
 
 const listRecipeInformation = makeListRecipeInformation({
   recipeScraper,

@@ -1,3 +1,13 @@
+export type recipeInformation = {
+  name: string
+  energy: {kcal: string; kJ: string}
+  protein: string
+  carbs: string
+  fat: string
+  numberOfPortions: string
+  recipeId: string
+}
+
 export default function buildMakeRecipeInformation() {
   return function makeRecipeInformation({
     name,
@@ -7,7 +17,7 @@ export default function buildMakeRecipeInformation() {
     fat,
     numberOfPortions,
     recipeId,
-  } = {}) {
+  }: recipeInformation) {
     if (!name) {
       throw new Error('Recipe Information must have name')
     }
