@@ -1,6 +1,6 @@
-import {HTTPResponse, HTTPRequest} from 'controller'
 import {RecipeInformation} from 'entities/recipeInformation'
 import {UserData} from 'entities/userData'
+import {HTTPRequest, HTTPResponse} from '.'
 
 interface Props {
   listRecipeInformationOnWeekplan: (userData: UserData) => Promise<RecipeInformation[]>

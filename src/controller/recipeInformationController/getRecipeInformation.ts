@@ -1,5 +1,5 @@
-import type {HTTPResponse, HTTPRequest} from 'controller'
 import type {RecipeInformation} from 'entities/recipeInformation'
+import {HTTPRequest, HTTPResponse} from '.'
 interface Props {
   listRecipeInformation: (recipeId: string) => Promise<RecipeInformation>
 }

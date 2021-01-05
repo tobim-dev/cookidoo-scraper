@@ -1,4 +1,4 @@
-import type {HTTPResponse, HTTPRequest} from 'controller'
+import type {HTTPResponse, HTTPRequest} from '../../controller/recipeInformationController'
 import type {Request, Response} from 'express'
 
 export default function makeExpressCallback(controller: (httpRequest: HTTPRequest) => Promise<HTTPResponse>) {

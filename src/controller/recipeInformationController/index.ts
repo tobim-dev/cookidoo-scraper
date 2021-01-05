@@ -1,5 +1,5 @@
 import makeGetRecipeInformation from './getRecipeInformation'
-import {listRecipeInformation, listRecipeInformationOnWeekplan} from '../use-cases/recipeInformationService'
+import {listRecipeInformation, listRecipeInformationOnWeekplan} from '../../use-cases/recipeInformationService'
 import makeGetRecipeInformationOnWeekPlan from './getRecipeInformationOnWeekplan'
 import {RecipeInformation} from 'entities/recipeInformation'
 
