@@ -1,11 +1,12 @@
+import recipeInformationController from 'controller/recipeInformationController'
 import express, {Router} from 'express'
-import makeCallback from '../utils/express-callback'
-import recipeInformationController from '../controller/recipeInformationController'
+
+const {getRecipeInformationById, getRecipeInformationByWeekplan} = recipeInformationController
 
 function getRoutes(): Router {
   const router = express.Router()
-  router.get('/recipe', makeCallback(recipeInformationController.getRecipeInformation))
-  router.post('/weekplan', makeCallback(recipeInformationController.getRecipeInformationOnWeekPlan))
+  router.get('/recipe/:recipeId', getRecipeInformationById)
+  router.get('/recipes/weekplan', getRecipeInformationByWeekplan)
   // any additional routes would go here
   return router
 }
