@@ -1,18 +1,18 @@
 import {Response, Request} from 'express'
-
-const listRecipeInformation = async (recipeId: string) => recipeId
-const listRecipeInformationByWeekplan = async (username: string, password: string) => username
-
+import recipeInformationService from 'service/recipeInformationService'
 interface Dependencies {
-  listRecipeInformation: (recipeId: string) => Promise<string>
-  listRecipeInformationByWeekplan: (username: string, password: string) => Promise<string>
+  listRecipeInformationById: (recipeId: string) => Promise<string>
+  listRecipeInformationByWeekplan: (username: string, password: string) => Promise<string[]>
 }
 
-const makeRecipeInformationController = ({listRecipeInformation, listRecipeInformationByWeekplan}: Dependencies) => {
+const makeRecipeInformationController = ({
+  listRecipeInformationById,
+  listRecipeInformationByWeekplan,
+}: Dependencies) => {
   const getRecipeInformationById = async (req: Request, res: Response) => {
     const recipeId = req.params.recipeId
 
-    const recipeInformation = await listRecipeInformation(recipeId)
+    const recipeInformation = await listRecipeInformationById(recipeId)
 
     res.status(200).send(recipeInformation)
   }
@@ -40,8 +40,10 @@ const makeRecipeInformationController = ({listRecipeInformation, listRecipeInfor
   }
 }
 
+const {listRecipeInformationById, listRecipeInformationByWeekplan} = recipeInformationService
+
 const recipeInformationController = makeRecipeInformationController({
-  listRecipeInformation,
+  listRecipeInformationById,
   listRecipeInformationByWeekplan,
 })
 
