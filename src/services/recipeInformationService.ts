@@ -1,8 +1,12 @@
-const scrapeRecipeInformationById = async (recipeId: string) => recipeId
-const scrapeWeekplanRecipeIds = async (username: string, password: string) => [username, password]
+import RecipeInformation from 'models/RecipeInformation'
+import makeRecipeIdListStub from 'tests/stubs/recipeIdListStub'
+import makeRecipeInformationStub from 'tests/stubs/recipeInformationStub'
+
+const scrapeRecipeInformationById = async (recipeId: string) => makeRecipeInformationStub()
+const scrapeWeekplanRecipeIds = async (username: string, password: string) => makeRecipeIdListStub()
 
 interface Dependencies {
-  scrapeRecipeInformationById: (recipeId: string) => Promise<string>
+  scrapeRecipeInformationById: (recipeId: string) => Promise<RecipeInformation>
   scrapeWeekplanRecipeIds: (username: string, password: string) => Promise<string[]>
 }
 
