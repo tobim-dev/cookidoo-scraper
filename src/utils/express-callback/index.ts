@@ -1,5 +1,8 @@
-export default function makeExpressCallback(controller) {
-  return (req, res) => {
+import type {HTTPResponse, HTTPRequest} from 'controller'
+import type {Request, Response} from 'express'
+
+export default function makeExpressCallback(controller: (httpRequest: HTTPRequest) => Promise<HTTPResponse>) {
+  return (req: Request, res: Response): void => {
     const httpRequest = {
       body: req.body,
       query: req.query,
@@ -13,7 +16,7 @@ export default function makeExpressCallback(controller) {
         'User-Agent': req.get('User-Agent'),
       },
     }
-    controller(httpRequest)
+    controller((httpRequest as unknown) as HTTPRequest)
       .then(httpResponse => {
         if (httpResponse.headers) {
           res.set(httpResponse.headers)

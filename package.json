@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "node .",
-    "build": "babel --delete-dir-on-start --out-dir dist --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --no-copy-ignored src",
+    "build": "babel --delete-dir-on-start --out-dir dist --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --extensions \".ts\" --no-copy-ignored src",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "check-types": "tsc",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
@@ -49,6 +49,6 @@
     "npm-run-all": "^4.1.5",
     "prettier": "2.2.1",
     "ts-node": "^9.1.1",
-    "typescript": "^3.5.3"
+    "typescript": "^4.1.3"
   }
 }

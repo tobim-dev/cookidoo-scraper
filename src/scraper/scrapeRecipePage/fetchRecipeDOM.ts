@@ -1,6 +1,6 @@
-import got from 'got'
+import got, {Response} from 'got'
 
-export const fetchRecipeDOM = async (recipeId: string, baseURL: string) => {
+export const fetchRecipeDOM = async (recipeId: string, baseURL: string): Promise<Response<string>> => {
   const url = baseURL + recipeId
   try {
     const response = await got(url)

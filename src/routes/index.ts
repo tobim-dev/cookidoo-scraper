@@ -1,8 +1,8 @@
-import express from 'express'
+import express, {Router} from 'express'
 import makeCallback from '../utils/express-callback'
 import {getRecipeInformation, getRecipeInformationOnWeekPlan} from '../controller'
 
-function getRoutes() {
+function getRoutes(): Router {
   const router = express.Router()
   router.get('/recipe', makeCallback(getRecipeInformation))
   router.post('/weekplan', makeCallback(getRecipeInformationOnWeekPlan))

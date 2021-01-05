@@ -1,15 +1,15 @@
 import makeListRecipeInformation from './listRecipeInformation'
-import recipeScraper from '../scraper/unauthorizedScraper'
 import makeListRecipeInformationOnWeekplan from './listRecipeInformationOnWeekPlan'
-import authorizedRecipeScraper from '../scraper/authorizedScraper'
-import {recipeInformationCache, recipeInformationListCache} from '../cache'
+import scrapeRecipePage from '../scraper/scrapeRecipePage'
+import scrapeWeekplanPage from '../scraper/scrapeWeekplanPage'
 
-const listRecipeInformation = makeListRecipeInformation(recipeScraper, recipeInformationCache)
-const listRecipeInformationOnWeekplan = makeListRecipeInformationOnWeekplan(
-  authorizedRecipeScraper,
-  recipeScraper,
-  recipeInformationListCache,
-)
+const listRecipeInformation = makeListRecipeInformation({
+  scrapeRecipePage,
+})
+const listRecipeInformationOnWeekplan = makeListRecipeInformationOnWeekplan({
+  scrapeWeekplanPage,
+  scrapeRecipePage,
+})
 
 const recipeInformationService = Object.freeze({
   listRecipeInformation,

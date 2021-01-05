@@ -1,16 +1,13 @@
-import {ListRecipeInformationOnWeekplan} from 'use-cases/listRecipeInformationOnWeekplan'
+import {HTTPResponse, HTTPRequest} from 'controller'
+import {RecipeInformation} from 'entities/recipeInformation'
+import {UserData} from 'entities/userData'
 
-type HTTPRequest = {
-  body: {
-    username: string
-    password: string
-  }
+interface Props {
+  listRecipeInformationOnWeekplan: (userData: UserData) => Promise<RecipeInformation[]>
 }
 
-export default function makeGetRecipeInformationOnWeekPlan(
-  listRecipeInformationOnWeekplan: ListRecipeInformationOnWeekplan,
-) {
-  return async function getRecipeInformationOnWeekPlan(httpRequest: HTTPRequest) {
+export default function makeGetRecipeInformationOnWeekPlan({listRecipeInformationOnWeekplan}: Props) {
+  return async function getRecipeInformationOnWeekPlan(httpRequest: HTTPRequest): Promise<HTTPResponse> {
     const headers = {
       'Content-Type': 'application/json',
     }

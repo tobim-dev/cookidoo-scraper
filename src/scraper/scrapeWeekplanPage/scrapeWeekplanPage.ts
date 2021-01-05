@@ -1,15 +1,26 @@
-import {Browser} from 'puppeteer'
-import {UserData} from '../../use-cases/listRecipeInformationOnWeekplan'
+import {UserData} from 'entities/userData'
+import type {Browser} from 'puppeteer'
 
-export type AuthorizedRecipeScraper = {
-  scrapeRecipeIdsOnWeekplan: (userData: UserData) => Promise<string[]>
+export type ScrapeWeekplanPage = (userData: UserData) => Promise<string[]>
+
+interface Props {
+  makeBrowser: () => Promise<Browser>
+  url: string
+  setCachedValue: (key: string, value: string) => void
+  getCachedValue: (key: string) => string | undefined
 }
 
-export default function makeAuthorizedRecipeScraper(
-  makeBrowser: () => Promise<Browser>,
-  url: string,
-): AuthorizedRecipeScraper {
-  async function scrapeRecipeIdsOnWeekplan(userData: UserData) {
+export default function makeScrapeWeekplanPage({
+  makeBrowser,
+  url,
+  setCachedValue,
+  getCachedValue,
+}: Props): ScrapeWeekplanPage {
+  return async function scrapeWeekplanPage(userData: UserData): Promise<string[]> {
+    if (getCachedValue(userData.username)) {
+      return JSON.parse(getCachedValue(userData.username))
+    }
+
     const browser = await makeBrowser()
     const page = await browser.newPage()
     console.log(`Navigating to ${url}...`)
@@ -51,10 +62,8 @@ export default function makeAuthorizedRecipeScraper(
 
     await browser.close()
 
-    return recipeIdList as string[]
-  }
+    setCachedValue(userData.username, JSON.stringify(recipeIdList))
 
-  return {
-    scrapeRecipeIdsOnWeekplan,
+    return recipeIdList
   }
 }

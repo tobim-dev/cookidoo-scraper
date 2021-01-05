@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer'
 
-async function startBrowser() {
+async function startBrowser(): Promise<puppeteer.Browser> {
   let browser: puppeteer.Browser
   try {
     console.log('Opening the browser......')
@@ -15,7 +15,7 @@ async function startBrowser() {
   return browser
 }
 
-export default async function makeBrowser() {
+export default async function makeBrowser(): Promise<puppeteer.Browser> {
   const browserInstance = await startBrowser()
   return browserInstance
 }

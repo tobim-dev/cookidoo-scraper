@@ -1,10 +1,12 @@
-import {Cache} from 'cache/cacheFactory'
-import {RecipeScraper} from 'scraper/unauthorizedScraper/recipeScraper'
 import {RecipeInformation} from '../entities/recipeInformation'
 
 export type ListRecipeInformation = (recipeId: string) => Promise<RecipeInformation>
 
-export default function makeListRecipeInformation(recipeScraper: RecipeScraper, cache: Cache): ListRecipeInformation {
+interface Props {
+  scrapeRecipePage: (recipeId: string) => Promise<RecipeInformation>
+}
+
+export default function makeListRecipeInformation({scrapeRecipePage}: Props): ListRecipeInformation {
   return async function listRecipeInformation(recipeId): Promise<RecipeInformation> {
     if (!recipeId) {
       throw new Error('You must supply a recipe id.')
@@ -16,13 +18,7 @@ export default function makeListRecipeInformation(recipeScraper: RecipeScraper, 
       throw new Error('You must supply a valid recipe id.')
     }
 
-    if (cache.getValue(recipeId)) {
-      return JSON.parse(cache.getValue(recipeId))
-    }
-
-    const recipeInformationScrapeResult = await recipeScraper.scrapeRecipeInformationById(recipeId)
-
-    cache.setValue(recipeId, JSON.stringify(recipeInformationScrapeResult))
+    const recipeInformationScrapeResult = await scrapeRecipePage(recipeId)
 
     return recipeInformationScrapeResult as RecipeInformation
   }
