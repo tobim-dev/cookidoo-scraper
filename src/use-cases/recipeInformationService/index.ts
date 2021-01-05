@@ -1,14 +1,13 @@
 import makeListRecipeInformation from './listRecipeInformation'
 import makeListRecipeInformationOnWeekplan from './listRecipeInformationOnWeekPlan'
-import scrapeRecipePage from '../scrapeService/scrapeRecipePage'
-import scrapeWeekplanPage from '../scrapeService/scrapeWeekplanPage'
+import scrapeService from '../scrapeService'
 
 const listRecipeInformation = makeListRecipeInformation({
-  scrapeRecipePage,
+  scrapeRecipePage: scrapeService.scrapeRecipePage,
 })
 const listRecipeInformationOnWeekplan = makeListRecipeInformationOnWeekplan({
-  scrapeWeekplanPage,
-  scrapeRecipePage,
+  scrapeWeekplanPage: scrapeService.scrapeWeekplanPage,
+  scrapeRecipePage: scrapeService.scrapeRecipePage,
 })
 
 const recipeInformationService = Object.freeze({

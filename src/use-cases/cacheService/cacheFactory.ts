@@ -1,19 +1,24 @@
-import NodeCache from 'node-cache'
-import {KeyGenerator} from './keyGenerator'
-
 export type Cache = {
   setValue: (key: string, value: string) => void
   getValue: (key: string) => string
 }
 
-export default function makeCache(cache: NodeCache, keyGenerator?: KeyGenerator): Cache {
+interface Props {
+  cache: {
+    set: (key: string, value: string) => void
+    get: (key: string) => string | undefined
+  }
+  keyGenerator?: (key: string) => string
+}
+
+export default function makeCache({cache, keyGenerator}: Props): Cache {
   function setValue(key: string, value: string): void {
-    const setKey = keyGenerator ? keyGenerator.generateKey(key) : key
+    const setKey = keyGenerator ? keyGenerator(key) : key
     cache.set(setKey, JSON.stringify(value))
   }
 
   function getValue(key: string): string {
-    const setKey = keyGenerator ? keyGenerator.generateKey(key) : key
+    const setKey = keyGenerator ? keyGenerator(key) : key
     return cache.get(setKey)
   }
 

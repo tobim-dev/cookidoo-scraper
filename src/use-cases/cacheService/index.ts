@@ -1,10 +1,18 @@
 import NodeCache from 'node-cache'
-import dayKeyGenerator from './keyGenerator'
+import {generateMidnightInValidKey} from './keyGenerator'
 import makeCache from './cacheFactory'
 
-const cache = new NodeCache()
+const hourCache = new NodeCache({stdTTL: 3600})
+const dayCache = new NodeCache({stdTTL: 86400})
 
-const recipeInformationCache = makeCache(cache)
-const recipeInformationListCache = makeCache(cache, dayKeyGenerator)
+const cacheWithOneHourDuration = makeCache({cache: hourCache})
+const cacheWithOneDayDurationAndMidnightReset = makeCache({cache: dayCache, keyGenerator: generateMidnightInValidKey})
 
-export {recipeInformationCache, recipeInformationListCache}
+const cacheService = Object.freeze({
+  getValue: cacheWithOneHourDuration.getValue,
+  setValue: cacheWithOneHourDuration.setValue,
+  getValueDayValid: cacheWithOneDayDurationAndMidnightReset.getValue,
+  setValueDayValid: cacheWithOneDayDurationAndMidnightReset.setValue,
+})
+
+export default cacheService

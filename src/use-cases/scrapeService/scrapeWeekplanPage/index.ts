@@ -1,13 +1,13 @@
-import {recipeInformationListCache} from '../../cacheService'
 import makeBrowser from './browser'
 import makeScrapeWeekplanPage from './scrapeWeekplanPage'
+import cacheService from '../../cacheService'
 
 const url = process.env.COOKIDOO_HOME_URL
 
 const scrapeWeekplanPage = makeScrapeWeekplanPage({
   makeBrowser,
   url,
-  setCachedValue: recipeInformationListCache.setValue,
-  getCachedValue: recipeInformationListCache.getValue,
+  setCachedValue: cacheService.setValueDayValid,
+  getCachedValue: cacheService.getValueDayValid,
 })
 export default scrapeWeekplanPage

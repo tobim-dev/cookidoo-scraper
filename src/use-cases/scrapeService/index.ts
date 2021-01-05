@@ -1,5 +1,5 @@
 import scrapeRecipePage from './scrapeRecipePage'
-import scrapeWeekplanPage from './scrapeRecipePage'
+import scrapeWeekplanPage from './scrapeWeekplanPage'
 
 const scrapeService = Object.freeze({
   scrapeRecipePage,

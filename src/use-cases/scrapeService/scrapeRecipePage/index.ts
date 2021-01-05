@@ -1,10 +1,10 @@
 import makeScrapeRecipePage from './scrapeRecipePage'
 import makeRenderPageWithRecipeId from './renderPageWithRecipeId'
-import {recipeInformationCache} from '../../cacheService'
+import cacheService from '../../cacheService'
 
 const scrapeRecipePage = makeScrapeRecipePage({
   makeRenderPageWithRecipeId,
-  setCachedValue: recipeInformationCache.setValue,
-  getCachedValue: recipeInformationCache.getValue,
+  setCachedValue: cacheService.setValue,
+  getCachedValue: cacheService.getValue,
 })
 export default scrapeRecipePage
