@@ -1,5 +1,5 @@
 import {UserData} from 'entities/userData'
-import {RecipeInformation} from '../entities/recipeInformation'
+import {RecipeInformation} from '../../entities/recipeInformation'
 
 interface Props {
   scrapeWeekplanPage: (userData: UserData) => Promise<string[]>

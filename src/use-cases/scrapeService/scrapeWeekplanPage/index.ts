@@ -1,4 +1,4 @@
-import {recipeInformationListCache} from '../../cache'
+import {recipeInformationListCache} from '../../cacheService'
 import makeBrowser from './browser'
 import makeScrapeWeekplanPage from './scrapeWeekplanPage'
 

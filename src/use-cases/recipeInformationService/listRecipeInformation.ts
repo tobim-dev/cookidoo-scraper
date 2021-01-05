@@ -1,4 +1,4 @@
-import {RecipeInformation} from '../entities/recipeInformation'
+import {RecipeInformation} from '../../entities/recipeInformation'
 
 export type ListRecipeInformation = (recipeId: string) => Promise<RecipeInformation>
 

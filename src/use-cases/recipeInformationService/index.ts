@@ -1,7 +1,7 @@
 import makeListRecipeInformation from './listRecipeInformation'
 import makeListRecipeInformationOnWeekplan from './listRecipeInformationOnWeekPlan'
-import scrapeRecipePage from '../scraper/scrapeRecipePage'
-import scrapeWeekplanPage from '../scraper/scrapeWeekplanPage'
+import scrapeRecipePage from '../scrapeService/scrapeRecipePage'
+import scrapeWeekplanPage from '../scrapeService/scrapeWeekplanPage'
 
 const listRecipeInformation = makeListRecipeInformation({
   scrapeRecipePage,
