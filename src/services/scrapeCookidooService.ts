@@ -2,8 +2,12 @@ import type {JSDOM} from 'jsdom'
 import cacheService from './cacheService'
 import renderService from './renderService'
 
+type renderOptions = {
+  authCookie?: string
+  headerValues?: any
+}
 interface Dependencies {
-  renderPage: (url: string, authCookie?: string) => Promise<JSDOM>
+  renderPage: (url: string, {authCookie, headerValues}?: renderOptions) => Promise<JSDOM>
   getAuthentificationCookie: (username: string, password: string, url: string) => Promise<string>
   getCachedValue: (key: string) => string | undefined
   setCachedValue: (key: string, value: string) => void
@@ -15,6 +19,18 @@ const makeScrapeCookidooService = ({
   getCachedValue,
   setCachedValue,
 }: Dependencies) => {
+  const formatDate = (date: Date) => {
+    const d = new Date(date)
+    let month = '' + (d.getMonth() + 1)
+    let day = '' + d.getDate()
+    const year = d.getFullYear()
+
+    if (month.length < 2) month = '0' + month
+    if (day.length < 2) day = '0' + day
+
+    return [year, month, day].join('-')
+  }
+
   const selectBy = (selector: string, dom: JSDOM): Element => {
     return dom.window.document.querySelector(selector)
   }
@@ -36,11 +52,23 @@ const makeScrapeCookidooService = ({
 
     setCachedValue(`${username}-authCookie`, cookieValue)
 
-    let renderedPage = await renderPage(`https://cookidoo.de/planning/de-DE/timeline/2021-01-06`, cookieValue)
+    const todayDate = formatDate(new Date())
+
+    let renderedPage = await renderPage(`https://cookidoo.de/planning/de-DE/timeline/${todayDate}`, {
+      authCookie: cookieValue,
+      headerValues: {
+        'X-Requested-With': 'xmlhttprequest',
+      },
+    })
 
     if (!renderedPage) {
       const newCookieValue = await getAuthentificationCookie(username, password, url)
-      renderedPage = await renderPage(`https://cookidoo.de/planning/de-DE/timeline/2021-01-06`, newCookieValue)
+      renderedPage = await renderPage(`https://cookidoo.de/planning/de-DE/timeline/2021-01-06`, {
+        authCookie: newCookieValue,
+        headerValues: {
+          'X-Requested-With': 'xmlhttprequest',
+        },
+      })
       setCachedValue(`${username}-authCookie`, newCookieValue)
     }
 

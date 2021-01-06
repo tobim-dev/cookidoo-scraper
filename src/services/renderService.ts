@@ -2,13 +2,18 @@ import got from 'got'
 import puppeteer from 'puppeteer'
 import {JSDOM} from 'jsdom'
 
+type renderOptions = {
+  authCookie?: string
+  headerValues?: any
+}
+
 const makeRenderService = () => {
-  const renderPage = async (url: string, authCookie?: string) => {
+  const renderPage = async (url: string, {authCookie, headerValues}: renderOptions = {}) => {
     const gotOptions = authCookie
       ? {
           headers: {
             Cookie: `v-token=${authCookie}`,
-            'X-Requested-With': 'xmlhttprequest',
+            ...headerValues,
           },
         }
       : {}

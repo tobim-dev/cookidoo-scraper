@@ -1,4 +1,3 @@
-import makeRecipeInformationStub from '../tests/stubs/recipeInformationStub'
 import RecipeInformation from '../models/RecipeInformation'
 import scrapeCookidooService from './scrapeCookidooService'
 
@@ -26,7 +25,6 @@ const makeRecipeInformationService = ({scrapeRecipeInformationById, scrapeWeekpl
 }
 
 const {scrapeRecipeInformationById, scrapeWeekplanRecipeIds} = scrapeCookidooService
-
 const recipeInformationService = makeRecipeInformationService({scrapeRecipeInformationById, scrapeWeekplanRecipeIds})
 
 export default recipeInformationService

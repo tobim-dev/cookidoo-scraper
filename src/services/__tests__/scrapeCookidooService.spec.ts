@@ -1,4 +1,4 @@
-import scrapeService from './scrapeCookidooService'
+import scrapeCookidooService from '../scrapeCookidooService'
 
 describe('scrapeService', () => {
   it.todo('scrape weekplan recipe ids')

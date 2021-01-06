@@ -1,4 +1,4 @@
-import recipeInformationService from './recipeInformationService'
+import recipeInformationService from '../recipeInformationService'
 
 describe('recipeInformationService', () => {
   it.todo('should list recipe information by id')

@@ -1,5 +1,5 @@
-import recipeInformationController from './recipeInformationController'
-import recipeInformationService from '../services/recipeInformationService'
+import recipeInformationController from '../recipeInformationController'
+import recipeInformationService from '../../services/recipeInformationService'
 import {getMockReq, getMockRes} from '@jest-mock/express'
 
 jest.mock('../services/recipeInformationService')
