@@ -1,9 +1,6 @@
-import RecipeInformation from 'models/RecipeInformation'
-import makeRecipeIdListStub from 'tests/stubs/recipeIdListStub'
-import makeRecipeInformationStub from 'tests/stubs/recipeInformationStub'
-
-const scrapeRecipeInformationById = async (recipeId: string) => makeRecipeInformationStub()
-const scrapeWeekplanRecipeIds = async (username: string, password: string) => makeRecipeIdListStub()
+import makeRecipeInformationStub from '../tests/stubs/recipeInformationStub'
+import RecipeInformation from '../models/RecipeInformation'
+import scrapeCookidooService from './scrapeCookidooService'
 
 interface Dependencies {
   scrapeRecipeInformationById: (recipeId: string) => Promise<RecipeInformation>
@@ -27,6 +24,8 @@ const makeRecipeInformationService = ({scrapeRecipeInformationById, scrapeWeekpl
     listRecipeInformationByWeekplan,
   }
 }
+
+const {scrapeRecipeInformationById, scrapeWeekplanRecipeIds} = scrapeCookidooService
 
 const recipeInformationService = makeRecipeInformationService({scrapeRecipeInformationById, scrapeWeekplanRecipeIds})
 

@@ -1,4 +1,4 @@
-import recipeInformationController from 'controller/recipeInformationController'
+import recipeInformationController from '../controller/recipeInformationController'
 import express, {Router} from 'express'
 
 const {getRecipeInformationById, getRecipeInformationByWeekplan} = recipeInformationController

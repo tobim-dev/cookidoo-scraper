@@ -1,6 +1,6 @@
 import {Response, Request} from 'express'
-import RecipeInformation from 'models/RecipeInformation'
-import recipeInformationService from 'services/recipeInformationService'
+import RecipeInformation from '../models/RecipeInformation'
+import recipeInformationService from '../services/recipeInformationService'
 interface Dependencies {
   listRecipeInformationById: (recipeId: string) => Promise<RecipeInformation>
   listRecipeInformationByWeekplan: (username: string, password: string) => Promise<RecipeInformation[]>
