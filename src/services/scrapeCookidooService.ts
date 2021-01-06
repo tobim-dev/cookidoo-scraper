@@ -1,12 +1,20 @@
 import type {JSDOM} from 'jsdom'
+import cacheService from './cacheService'
 import renderService from './renderService'
 
 interface Dependencies {
   renderPage: (url: string, authCookie?: string) => Promise<JSDOM>
   getAuthentificationCookie: (username: string, password: string, url: string) => Promise<string>
+  getCachedValue: (key: string) => string | undefined
+  setCachedValue: (key: string, value: string) => void
 }
 
-const makeScrapeCookidooService = ({renderPage, getAuthentificationCookie}: Dependencies) => {
+const makeScrapeCookidooService = ({
+  renderPage,
+  getAuthentificationCookie,
+  getCachedValue,
+  setCachedValue,
+}: Dependencies) => {
   const selectBy = (selector: string, dom: JSDOM): Element => {
     return dom.window.document.querySelector(selector)
   }
@@ -21,8 +29,20 @@ const makeScrapeCookidooService = ({renderPage, getAuthentificationCookie}: Depe
 
   const scrapeWeekplanRecipeIds = async (username: string, password: string) => {
     const url = 'https://cookidoo.de/foundation/de-DE'
-    const cookieValue = await getAuthentificationCookie(username, password, url)
-    const renderedPage = await renderPage(`https://cookidoo.de/planning/de-DE/timeline/2021-01-06`, cookieValue)
+
+    const cookieValue = getCachedValue(`${username}-authCookie`)
+      ? getCachedValue(`${username}-authCookie`)
+      : await getAuthentificationCookie(username, password, url)
+
+    setCachedValue(`${username}-authCookie`, cookieValue)
+
+    let renderedPage = await renderPage(`https://cookidoo.de/planning/de-DE/timeline/2021-01-06`, cookieValue)
+
+    if (!renderedPage) {
+      const newCookieValue = await getAuthentificationCookie(username, password, url)
+      renderedPage = await renderPage(`https://cookidoo.de/planning/de-DE/timeline/2021-01-06`, newCookieValue)
+      setCachedValue(`${username}-authCookie`, newCookieValue)
+    }
 
     const recipeLinks = selectAllBy('a', renderedPage)
 
@@ -63,7 +83,13 @@ const makeScrapeCookidooService = ({renderPage, getAuthentificationCookie}: Depe
 }
 
 const {renderPage, getAuthentificationCookie} = renderService
+const {setCachedValue, getCachedValue} = cacheService
 
-const scrapeCookidooService = makeScrapeCookidooService({renderPage, getAuthentificationCookie})
+const scrapeCookidooService = makeScrapeCookidooService({
+  renderPage,
+  getAuthentificationCookie,
+  setCachedValue,
+  getCachedValue,
+})
 
 export default scrapeCookidooService

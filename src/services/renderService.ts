@@ -15,7 +15,9 @@ const makeRenderService = () => {
 
     const response = await got.get(url, gotOptions)
 
-    return new JSDOM(response.body, {pretendToBeVisual: true})
+    if (response.statusCode !== 200) return null
+
+    return new JSDOM(response.body)
   }
 
   const startBrowser = async (): Promise<puppeteer.Browser> => {
