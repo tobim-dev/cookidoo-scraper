@@ -1,4 +1,4 @@
-const makeRecipeInformationStub = () => {
+const makeRecipeInformationStub = (recipeId: string) => {
   return {
     name: 'Kartoffelsalat mit Kichererbsen und Spinat',
     energy: {
@@ -9,8 +9,37 @@ const makeRecipeInformationStub = () => {
     carbs: '44',
     fat: '27',
     numberOfPortions: '2',
-    recipeId: 'r249355',
+    recipeId,
   }
 }
 
-export default makeRecipeInformationStub
+const makeRecipeInformationListStub = () => {
+  return [
+    {
+      name: 'Kartoffelsalat mit Kichererbsen und Spinat',
+      energy: {
+        kJ: '2047',
+        kcal: '489',
+      },
+      protein: '13',
+      carbs: '44',
+      fat: '27',
+      numberOfPortions: '2',
+      recipeId: 'r23142',
+    },
+    {
+      name: 'Kartoffelsalat mit Kichererbsen und Spinat',
+      energy: {
+        kJ: '2047',
+        kcal: '489',
+      },
+      protein: '13',
+      carbs: '44',
+      fat: '27',
+      numberOfPortions: '2',
+      recipeId: 'r23142',
+    },
+  ]
+}
+
+export {makeRecipeInformationStub, makeRecipeInformationListStub}

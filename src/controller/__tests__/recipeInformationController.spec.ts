@@ -1,22 +1,24 @@
-import recipeInformationController from '../recipeInformationController'
-import recipeInformationService from '../../services/recipeInformationService'
+import makeRecipeInformationController from '../recipeInformationController'
 import {getMockReq, getMockRes} from '@jest-mock/express'
-
-jest.mock('../services/recipeInformationService')
+import {makeRecipeInformationStub, makeRecipeInformationListStub} from '../../tests/stubs/recipeInformationStub'
 
 describe('recipeInformationController', () => {
-  const mockedListRecipeInformationById = (recipeInformationService.listRecipeInformationById as unknown) as jest.Mock<
-    typeof recipeInformationService.listRecipeInformationById
-  >
+  const listRecipeInformationById = jest.fn(async () => makeRecipeInformationStub('r474790'))
+  const listRecipeInformationByWeekplan = jest.fn(async () => makeRecipeInformationListStub())
 
-  it('should call the recipe service to get recipe information', async () => {
+  it('should send a response with recipe information for the given Id', async () => {
     const req = getMockReq({params: {recipeId: 'r474790'}})
     const {res} = getMockRes()
 
-    await recipeInformationController.getRecipeInformationById(req, res)
+    const recipeInformationController = makeRecipeInformationController({
+      listRecipeInformationById,
+      listRecipeInformationByWeekplan,
+    })
 
-    expect(mockedListRecipeInformationById).toBeCalledWith('r474790')
-    expect(mockedListRecipeInformationById).toBeCalledTimes(1)
+    await recipeInformationController.getRecipeInformationById(req, res)
+    expect(listRecipeInformationById).toHaveBeenCalledTimes(1)
+    expect(listRecipeInformationById).toHaveBeenCalledWith('r474790')
     expect(res.status).toBeCalledWith(200)
+    expect(res.send).toHaveBeenCalledWith(makeRecipeInformationStub('r474790'))
   })
 })
