@@ -1,6 +1,9 @@
 type RecipeInformation = {
   name: string
-  energy: {kcal: string; kJ: string}
+  energy: {
+    kJ: string
+    kcal: string
+  }
   protein: string
   carbs: string
   fat: string

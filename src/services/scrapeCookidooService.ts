@@ -38,7 +38,7 @@ const makeScrapeCookidooService = ({
   }
 
   const getNumbersFromInnerHTML = (htmlElement: Element): string[] => {
-    return htmlElement.innerHTML.split(' ').filter(Number)
+    return htmlElement?.innerHTML.split(' ').filter(Number)
   }
 
   const scrapeWeekplanRecipeIds = async (username: string, password: string) => {
@@ -88,15 +88,15 @@ const makeScrapeCookidooService = ({
     const numberOfPortions = selectBy('#rc-icon-quantity-icon-text', renderedPage)
 
     return {
-      name: recipeTitle.innerHTML,
+      name: recipeTitle ? recipeTitle.innerHTML : '',
       energy: {
-        kJ: getNumbersFromInnerHTML(naehrwerte)[0],
-        kcal: getNumbersFromInnerHTML(naehrwerte)[1],
+        kJ: naehrwerte ? getNumbersFromInnerHTML(naehrwerte)[0] : '',
+        kcal: naehrwerte ? getNumbersFromInnerHTML(naehrwerte)[1] : '',
       },
-      protein: getNumbersFromInnerHTML(protein)[0],
-      carbs: getNumbersFromInnerHTML(carbs)[0],
-      fat: getNumbersFromInnerHTML(fat)[0],
-      numberOfPortions: getNumbersFromInnerHTML(numberOfPortions)[0],
+      protein: protein ? getNumbersFromInnerHTML(protein)[0] : '',
+      carbs: carbs ? getNumbersFromInnerHTML(carbs)[0] : '',
+      fat: fat ? getNumbersFromInnerHTML(fat)[0] : '',
+      numberOfPortions: numberOfPortions ? getNumbersFromInnerHTML(numberOfPortions)[0] : '',
       recipeId: recipeId,
     }
   }

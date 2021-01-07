@@ -16,6 +16,7 @@ describe('recipeInformationController', () => {
     })
 
     await recipeInformationController.getRecipeInformationById(req, res)
+
     expect(listRecipeInformationById).toHaveBeenCalledTimes(1)
     expect(listRecipeInformationById).toHaveBeenCalledWith('r474790')
     expect(res.status).toBeCalledWith(200)
