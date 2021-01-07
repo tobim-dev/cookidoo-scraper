@@ -1,7 +1,26 @@
-import recipeInformationController from '../controller/recipeInformationController'
+import makeRecipeInformationController from '../controller/recipeInformationController'
+import makeRecipeInformationService from '../services/recipeInformationService'
 import express, {Router} from 'express'
+import makeScrapeCookidooService from '../services/scrapeCookidooService'
+import makeCacheService from '../services/cacheService'
+import makeRenderService from '../services/renderService'
 
-const {getRecipeInformationById, getRecipeInformationByWeekplan} = recipeInformationController
+const {renderPage, getAuthentificationCookie} = makeRenderService()
+const {setCachedValue, getCachedValue} = makeCacheService()
+const {scrapeRecipeInformationById, scrapeWeekplanRecipeIds} = makeScrapeCookidooService({
+  setCachedValue,
+  getCachedValue,
+  renderPage,
+  getAuthentificationCookie,
+})
+const {listRecipeInformationById, listRecipeInformationByWeekplan} = makeRecipeInformationService({
+  scrapeRecipeInformationById,
+  scrapeWeekplanRecipeIds,
+})
+const {getRecipeInformationById, getRecipeInformationByWeekplan} = makeRecipeInformationController({
+  listRecipeInformationById,
+  listRecipeInformationByWeekplan,
+})
 
 function getRoutes(): Router {
   const router = express.Router()

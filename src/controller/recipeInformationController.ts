@@ -1,6 +1,5 @@
 import {Response, Request} from 'express'
 import RecipeInformation from '../models/RecipeInformation'
-import recipeInformationService from '../services/recipeInformationService'
 interface Dependencies {
   listRecipeInformationById: (recipeId: string) => Promise<RecipeInformation>
   listRecipeInformationByWeekplan: (username: string, password: string) => Promise<RecipeInformation[]>
@@ -41,11 +40,4 @@ const makeRecipeInformationController = ({
   }
 }
 
-const {listRecipeInformationById, listRecipeInformationByWeekplan} = recipeInformationService
-
-const recipeInformationController = makeRecipeInformationController({
-  listRecipeInformationById,
-  listRecipeInformationByWeekplan,
-})
-
-export default recipeInformationController
+export default makeRecipeInformationController

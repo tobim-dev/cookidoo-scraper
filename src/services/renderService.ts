@@ -80,6 +80,4 @@ const makeRenderService = () => {
   }
 }
 
-const renderService = makeRenderService()
-
-export default renderService
+export default makeRenderService

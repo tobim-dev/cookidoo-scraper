@@ -1,5 +1,4 @@
 import RecipeInformation from '../models/RecipeInformation'
-import scrapeCookidooService from './scrapeCookidooService'
 
 interface Dependencies {
   scrapeRecipeInformationById: (recipeId: string) => Promise<RecipeInformation>
@@ -24,7 +23,4 @@ const makeRecipeInformationService = ({scrapeRecipeInformationById, scrapeWeekpl
   }
 }
 
-const {scrapeRecipeInformationById, scrapeWeekplanRecipeIds} = scrapeCookidooService
-const recipeInformationService = makeRecipeInformationService({scrapeRecipeInformationById, scrapeWeekplanRecipeIds})
-
-export default recipeInformationService
+export default makeRecipeInformationService

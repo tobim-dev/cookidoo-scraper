@@ -17,5 +17,4 @@ const makeCacheService = () => {
   }
 }
 
-const cacheService = makeCacheService()
-export default cacheService
+export default makeCacheService

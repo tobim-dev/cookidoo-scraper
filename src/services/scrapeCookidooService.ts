@@ -1,6 +1,4 @@
 import type {JSDOM} from 'jsdom'
-import cacheService from './cacheService'
-import renderService from './renderService'
 
 type renderOptions = {
   authCookie?: string
@@ -110,14 +108,4 @@ const makeScrapeCookidooService = ({
   return {scrapeWeekplanRecipeIds, scrapeRecipeInformationById, scrapeCollectionRecipeIds}
 }
 
-const {renderPage, getAuthentificationCookie} = renderService
-const {setCachedValue, getCachedValue} = cacheService
-
-const scrapeCookidooService = makeScrapeCookidooService({
-  renderPage,
-  getAuthentificationCookie,
-  setCachedValue,
-  getCachedValue,
-})
-
-export default scrapeCookidooService
+export default makeScrapeCookidooService

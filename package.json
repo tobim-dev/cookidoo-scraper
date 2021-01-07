@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@types/jsdom": "^16.2.5",
-    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
