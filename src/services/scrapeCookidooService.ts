@@ -1,4 +1,5 @@
 import type {JSDOM} from 'jsdom'
+import config from '../config'
 
 type renderOptions = {
   authCookie?: string
@@ -42,17 +43,15 @@ const makeScrapeCookidooService = ({
   }
 
   const scrapeWeekplanRecipeIds = async (username: string, password: string) => {
-    const url = 'https://cookidoo.de/foundation/de-DE'
-
     const cookieValue = getCachedValue(`${username}-authCookie`)
       ? getCachedValue(`${username}-authCookie`)
-      : await getAuthentificationCookie(username, password, url)
+      : await getAuthentificationCookie(username, password, config.urls.base)
 
     setCachedValue(`${username}-authCookie`, cookieValue)
 
     const todayDate = formatDate(new Date())
 
-    let renderedPage = await renderPage(`https://cookidoo.de/planning/de-DE/timeline/${todayDate}`, {
+    let renderedPage = await renderPage(`${config.urls.timeline}${todayDate}`, {
       authCookie: cookieValue,
       headerValues: {
         'X-Requested-With': 'xmlhttprequest',
@@ -60,8 +59,8 @@ const makeScrapeCookidooService = ({
     })
 
     if (!renderedPage) {
-      const newCookieValue = await getAuthentificationCookie(username, password, url)
-      renderedPage = await renderPage(`https://cookidoo.de/planning/de-DE/timeline/2021-01-06`, {
+      const newCookieValue = await getAuthentificationCookie(username, password, config.urls.base)
+      renderedPage = await renderPage(`${config.urls.timeline}${todayDate}`, {
         authCookie: newCookieValue,
         headerValues: {
           'X-Requested-With': 'xmlhttprequest',
@@ -78,7 +77,7 @@ const makeScrapeCookidooService = ({
   }
 
   const scrapeRecipeInformationById = async (recipeId: string) => {
-    const renderedPage = await renderPage(`https://cookidoo.de/recipes/recipe/de-DE/${recipeId}`)
+    const renderedPage = await renderPage(`${config.urls.recipe}${recipeId}`)
 
     const recipeTitle = selectBy('h1', renderedPage)
     const naehrwerte = selectBy('#nutritions-desktop > div > dl > dd:nth-child(4)', renderedPage)

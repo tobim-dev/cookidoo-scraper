@@ -1,4 +1,5 @@
 import logger from 'loglevel'
+import config from './config'
 import {startServer} from './start'
-logger.setLevel('info')
+logger.setLevel(config.logs.level)
 startServer()
