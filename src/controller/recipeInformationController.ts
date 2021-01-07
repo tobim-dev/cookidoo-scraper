@@ -22,14 +22,18 @@ const makeRecipeInformationController = ({
     const password = req.query.password
 
     if (typeof username !== 'string') {
-      throw new Error('You need to provide a correct username')
+      return res.status(400).send('You need to provide a username')
     }
 
     if (typeof password !== 'string') {
-      throw new Error('You need to provide a correct password')
+      return res.status(400).send('You need to provide a password')
     }
 
     const recipeInformation = await listRecipeInformationByWeekplan(username, password)
+
+    if (!recipeInformation.length) {
+      return res.status(404).send('No recipe found on your weekplan')
+    }
 
     res.status(200).send(recipeInformation)
   }
