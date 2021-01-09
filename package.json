@@ -20,7 +20,8 @@
   },
   "scripts": {
     "start": "node .",
-    "test": "jest --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "build": "babel --delete-dir-on-start --out-dir dist --copy-files --ignore \"**/__tests__/**,**/__mocks__/**\" --extensions \".ts\" --no-copy-ignored src",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "check-types": "tsc",
