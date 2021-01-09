@@ -1,5 +1,5 @@
 import {Response, Request} from 'express'
-import RecipeInformation from '../models/RecipeInformation'
+import RecipeInformation from '../../models/RecipeInformation'
 interface Dependencies {
   listRecipeInformationById: (recipeId: string) => Promise<RecipeInformation>
   listRecipeInformationByWeekplan: (username: string, password: string) => Promise<RecipeInformation[]>
@@ -32,7 +32,7 @@ const makeRecipeInformationController = ({
     const recipeInformation = await listRecipeInformationByWeekplan(username, password)
 
     if (!recipeInformation.length) {
-      return res.status(404).send('No recipe found on your weekplan')
+      return res.status(404).send('No recipe found on your weekplan for today or the following days')
     }
 
     res.status(200).send(recipeInformation)

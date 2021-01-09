@@ -1,11 +1,11 @@
-import RecipeInformation from '../models/RecipeInformation'
+import RecipeInformation from '../../models/RecipeInformation'
 
 interface Dependencies {
   scrapeRecipeInformationById: (recipeId: string) => Promise<RecipeInformation>
   scrapeWeekplanRecipeIds: (username: string, password: string) => Promise<string[]>
 }
 
-const makeRecipeInformationService = ({scrapeRecipeInformationById, scrapeWeekplanRecipeIds}: Dependencies) => {
+const makeListRecipeInformation = ({scrapeRecipeInformationById, scrapeWeekplanRecipeIds}: Dependencies) => {
   const listRecipeInformationById = async (recipeId: string) => {
     const recipeInformation = await scrapeRecipeInformationById(recipeId)
     return recipeInformation
@@ -23,4 +23,4 @@ const makeRecipeInformationService = ({scrapeRecipeInformationById, scrapeWeekpl
   }
 }
 
-export default makeRecipeInformationService
+export default makeListRecipeInformation

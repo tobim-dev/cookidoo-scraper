@@ -1,10 +1,11 @@
 import type {JSDOM} from 'jsdom'
-import config from '../config'
+import config from '../../config'
 
 type renderOptions = {
   authCookie?: string
-  headerValues?: any
+  headerValues?: {}
 }
+
 interface Dependencies {
   renderPage: (url: string, {authCookie, headerValues}?: renderOptions) => Promise<JSDOM>
   getAuthentificationCookie: (username: string, password: string, url: string) => Promise<string>
@@ -12,7 +13,7 @@ interface Dependencies {
   setCachedValue: (key: string, value: string) => void
 }
 
-const makeScrapeCookidooService = ({
+const makeScrapeRecipeInformation = ({
   renderPage,
   getAuthentificationCookie,
   getCachedValue,
@@ -100,6 +101,7 @@ const makeScrapeCookidooService = ({
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const scrapeCollectionRecipeIds = (username: string, password: string) => {
     return {} // ToDo: Implement
   }
@@ -107,4 +109,4 @@ const makeScrapeCookidooService = ({
   return {scrapeWeekplanRecipeIds, scrapeRecipeInformationById, scrapeCollectionRecipeIds}
 }
 
-export default makeScrapeCookidooService
+export default makeScrapeRecipeInformation

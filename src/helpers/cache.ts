@@ -1,6 +1,6 @@
 import NodeCache from 'node-cache'
 
-const makeCacheService = () => {
+const makeCache = () => {
   const cache = new NodeCache()
 
   const setCachedValue = (key: string, value: string) => {
@@ -17,4 +17,6 @@ const makeCacheService = () => {
   }
 }
 
-export default makeCacheService
+const cache = makeCache()
+
+export default cache

@@ -1,12 +1,12 @@
 import {makeRecipeInformationStub} from '../../tests/stubs/recipeInformationStub'
-import makeRecipeInformationService from '../recipeInformationService'
+import makeListRecipeInformation from './listRecipeInformation'
 
 describe('recipeInformationService', () => {
   const scrapeRecipeInformationById = async () => makeRecipeInformationStub('r31312')
   const scrapeWeekplanRecipeIds = async () => ['r31312', 'r31312']
 
   it('should list recipe information by id', async () => {
-    const recipeInformationService = makeRecipeInformationService({
+    const recipeInformationService = makeListRecipeInformation({
       scrapeRecipeInformationById,
       scrapeWeekplanRecipeIds,
     })
@@ -16,7 +16,7 @@ describe('recipeInformationService', () => {
     expect(recipeInformation).toEqual(makeRecipeInformationStub('r31312'))
   })
   it('should list recipe information by weekplan', async () => {
-    const recipeInformationService = makeRecipeInformationService({
+    const recipeInformationService = makeListRecipeInformation({
       scrapeRecipeInformationById,
       scrapeWeekplanRecipeIds,
     })

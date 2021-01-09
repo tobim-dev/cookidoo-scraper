@@ -4,10 +4,10 @@ import {JSDOM} from 'jsdom'
 
 type renderOptions = {
   authCookie?: string
-  headerValues?: any
+  headerValues?: {}
 }
 
-const makeRenderService = () => {
+const makeRenderer = () => {
   const renderPage = async (url: string, {authCookie, headerValues}: renderOptions = {}) => {
     const gotOptions = authCookie
       ? {
@@ -28,7 +28,7 @@ const makeRenderService = () => {
   const startBrowser = async (): Promise<puppeteer.Browser> => {
     let browser: puppeteer.Browser
     try {
-      console.log('Opening the browser......')
+      console.log('Opening browser...')
       browser = await puppeteer.launch({
         headless: true,
         args: ['--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage'],
@@ -42,6 +42,8 @@ const makeRenderService = () => {
 
   const getAuthentificationCookie = async (username: string, password: string, url: string) => {
     const browser = await startBrowser()
+
+    console.log('Getting authentification cookie...')
 
     const page = await browser.newPage()
 
@@ -80,4 +82,6 @@ const makeRenderService = () => {
   }
 }
 
-export default makeRenderService
+const renderer = makeRenderer()
+
+export default renderer

@@ -1,5 +1,5 @@
 import {JSDOM} from 'jsdom'
-import makeScrapeCookidooService from '../scrapeCookidooService'
+import makeScrapeRecipeInformation from './scrapeRecipeInformation'
 
 describe('scrapeService', () => {
   const renderPage = async () => new JSDOM(`<!DOCTYPE html><p>Hello world</p>`)
@@ -9,7 +9,7 @@ describe('scrapeService', () => {
   const setCachedValue = () => {}
 
   it('scrape weekplan recipe ids', async () => {
-    const scrapeCookidooService = makeScrapeCookidooService({
+    const scrapeCookidooService = makeScrapeRecipeInformation({
       renderPage,
       getAuthentificationCookie,
       getCachedValue,
@@ -34,7 +34,7 @@ describe('scrapeService', () => {
     expect(recipeInformation).toEqual(expectedRecipeInformation)
   })
   it('scrape recipe information by id', async () => {
-    const scrapeCookidooService = makeScrapeCookidooService({
+    const scrapeCookidooService = makeScrapeRecipeInformation({
       renderPage,
       getAuthentificationCookie,
       getCachedValue,

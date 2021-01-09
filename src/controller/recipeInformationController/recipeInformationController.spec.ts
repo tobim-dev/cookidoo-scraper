@@ -1,4 +1,4 @@
-import makeRecipeInformationController from '../recipeInformationController'
+import makeRecipeInformationController from './recipeInformationController'
 import {getMockReq, getMockRes} from '@jest-mock/express'
 import {makeRecipeInformationStub, makeRecipeInformationListStub} from '../../tests/stubs/recipeInformationStub'
 
