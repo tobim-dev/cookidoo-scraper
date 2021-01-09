@@ -1,7 +1,6 @@
 # Cookidoo Scraper
 
-This projects implements a REST-API the Cookidoo® website. For example, you can get recipe information for a specific
-recipe or get information for all recipes on your weekplan. In proving the information it scrapes Cookidoo® website.
+This project implements a REST API of the Cookidoo® website. For example, you can retrieve recipe information for a specific recipe or information for all recipes on your weekly schedule. To get the information, the Cookidoo® website is scraped.
 
 ## Motivation
 
