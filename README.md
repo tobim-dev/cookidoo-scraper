@@ -1,6 +1,10 @@
 # Cookidoo Scraper
 
-This project implements a REST API of the Cookidoo® website. For example, you can retrieve recipe information for a specific recipe or information for all recipes on your weekly schedule. To get the information, the Cookidoo® website is scraped.
+ <img src="https://img.shields.io/github/workflow/status/tobim-dev/cookidoo-scraper/docker_build" />
+
+This project implements a REST API of the Cookidoo® website. For example, you can retrieve recipe information for a
+specific recipe or information for all recipes on your weekly schedule. To get the information, the Cookidoo® website is
+scraped.
 
 ## Motivation
 
