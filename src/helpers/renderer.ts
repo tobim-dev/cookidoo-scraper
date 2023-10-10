@@ -61,7 +61,7 @@ const makeRenderer = () => {
     await page.waitForSelector('#email')
     await page.$eval('#email', (el: HTMLInputElement, value) => (el.value = value), username)
     await page.$eval('#password', (el: HTMLInputElement, value) => (el.value = value), password)
-    await page.click('#j_submit_id')
+    await page.click('button[type="submit"]')
 
     //await page.waitForNavigation()
 

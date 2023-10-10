@@ -18,8 +18,8 @@ const makeRecipeInformationController = ({
   }
 
   const getRecipeInformationByWeekplan = async (req: Request, res: Response) => {
-    const username = req.query.username
-    const password = req.query.password
+    const username = process.env.COOKIDOO_USERNAME || req.query.username
+    const password = process.env.COOKIDOO_PASSWORD || req.query.password
 
     if (typeof username !== 'string') {
       return res.status(400).send('You need to provide a username')
