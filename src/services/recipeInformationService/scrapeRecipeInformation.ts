@@ -52,14 +52,17 @@ const makeScrapeRecipeInformation = ({
 
     const todayDate = formatDate(new Date())
 
-    let renderedPage = await renderPage(`${config.urls.timeline}${todayDate}`, {
-      authCookie: cookieValue,
-      headerValues: {
-        'X-Requested-With': 'xmlhttprequest',
-      },
-    })
+    let renderedPage: JSDOM = null
 
-    if (!renderedPage) {
+    try {
+      renderedPage = await renderPage(`${config.urls.timeline}${todayDate}`, {
+        authCookie: cookieValue,
+        headerValues: {
+          'X-Requested-With': 'xmlhttprequest',
+        },
+      })
+    } catch (error) {
+      console.error(error)
       const newCookieValue = await getAuthentificationCookie(username, password, config.urls.base)
       renderedPage = await renderPage(`${config.urls.timeline}${todayDate}`, {
         authCookie: newCookieValue,
